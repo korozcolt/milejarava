@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/migrations', function () {
+    return Artisan::call('migrate', ["--force" => true ]);
+});
+
+Route::get('/key-generate', function () {
+    return Artisan::call('key:generate');
+});
