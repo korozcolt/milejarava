@@ -12,4 +12,6 @@ class Tag extends Model
     protected $fillable = [
         'id', 'name' , 'post_id'
     ];
+
+    protected $guarded = [];
 }
