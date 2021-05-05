@@ -13,6 +13,8 @@ class Post extends Model
         'title','slug','description','author','image'
     ];
 
+    protected $guarded = [];
+
     public function sluggable(){
         return [ 
             'slug' => [
