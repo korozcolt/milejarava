@@ -19,6 +19,8 @@ class CreatePostsTable extends Migration
             $table->string('slug')->unique();
             $table->text('description');
             $table->string('image');
+            $table->foreignId('category_id')->constrained();
+            $table->foreignId('tag_id')->constrained();
             $table->string('author');
             $table->timestamps();
         });
