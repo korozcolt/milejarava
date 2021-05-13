@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Redirect;
+ //Slug Generator
+use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -14,7 +20,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('posts.index',compact('posts'));
     }
 
     /**
@@ -24,7 +31,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('post.create',compact('tags', 'categories'));
     }
 
     /**
@@ -35,7 +44,25 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'category_id' => 'required',
+            'tag_id' => 'required',
+        ]);
+ 
+        $insert = [
+            'slug' => SlugService::createSlug(Post::class, 'slug', $request->title),
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            'tag_id' => $request->tag_id,
+            'description' => $request->description,
+        ];
+   
+        Post::insertGetId($insert);
+    
+        return Redirect::to('posts')
+       ->with('success','Excelente!, Tu post ya se encuentra guardado');
     }
 
     /**

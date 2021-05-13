@@ -15,6 +15,14 @@ class Post extends Model
 
     protected $guarded = [];
 
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
+    public function tag(){
+        return $this->belongsTo(Tag::class);
+    }
+
     public function sluggable(){
         return [ 
             'slug' => [

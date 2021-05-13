@@ -15,7 +15,7 @@ class Category extends Model
     }
 
     protected $fillable = [
-        'id', 'name' , 'post_id'
+        'id', 'name'
     ];
 
 }

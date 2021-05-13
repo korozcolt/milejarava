@@ -30,4 +30,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::resource('posts', PostController::class);
+Route::middleware(['auth:sanctum', 'verified'])->resource('posts', PostController::class);
